@@ -1,0 +1,569 @@
+$brandgreen: #38C172;
+
+$fontblue: #000000;
+$fontlight: #333333;
+
+$bgblue: #020a1c;
+$lightgrey: #eff4ff;
+
+$borderColor: #dcdcdc;
+$error: #e95252;
+$font-name: "silka-regular";
+
+@font-face {
+  font-family: "silka-regular";
+  src: url("../Silka/Silka_Webfont/Silka-Webfont/silka-regular-webfont.eot");
+  src: url("../Silka/Silka_Webfont/Silka-Webfont/silka-regular-webfont.woff") format("woff"),
+  url("../Silka/Silka_Webfont/Silka-Webfont/silka-regularitalic-webfont.ttf") format("opentype")
+  }
+
+
+$blueGradient: linear-gradient(to right, #30c776, #4f88f8);
+$blueGradientReverse: linear-gradient(to right, #4f88f8, #30c776);
+$orangeGradient: linear-gradient(to right, #e95252, #ffc840);
+
+$transition300: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+$transition800: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+$transition600: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+$transition600-1: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+$transition800-1: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+$transition1200: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    } //600px
+  }
+  @if $breakpoint == tab-port {
+    @media only screen and (max-width: 56.25em) {
+      @content;
+    } //900px
+  }
+  @if $breakpoint == tab-land {
+    @media only screen and (max-width: 75em) {
+      @content;
+    } //1200px
+  }
+  @if $breakpoint == mid-desktop {
+    @media only screen and (max-width: 90em) {
+      @content;
+    } //1440px
+  }
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    } //1800
+  }
+}
+
+// A map of breakpoints.
+$breakpoints: (
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
+
+//  RESPOND ABOVE
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-above(sm) {}
+@mixin respond-above($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+//
+//  RESPOND BELOW
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-below(sm) {}
+@mixin respond-below($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+//
+//  RESPOND BETWEEN
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-between(sm, md) {}
+@mixin respond-between($lower, $upper) {
+  // If both the lower and upper breakpoints exist in the map.
+  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+    // Get the lower and upper breakpoints.
+    $lower-breakpoint: map-get($breakpoints, $lower);
+    $upper-breakpoint: map-get($breakpoints, $upper);
+
+    // Write the media query.
+    @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+      @content;
+    }
+
+    // If one or both of the breakpoints don't exist.
+  } @else {
+    // If lower breakpoint is invalid.
+    @if (map-has-key($breakpoints, $lower) == false) {
+      // Log a warning.
+      @warn 'Your lower breakpoint was invalid: #{$lower}.';
+    }
+
+    // If upper breakpoint is invalid.
+    @if (map-has-key($breakpoints, $upper) == false) {
+      // Log a warning.
+      @warn 'Your upper breakpoint was invalid: #{$upper}.';
+    }
+  }
+}
+
+@mixin fontRender($color, $size, $weight, $lineHeight) {
+  color: $color;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $lineHeight;
+}
+
+body,
+html {
+    font-family: $font-name, sans-serif;
+}
+
+.container-cu {
+  max-width: 1200px;
+  @include respond(phone) {
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 100% !important;
+  }
+  @include respond(tab-port) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @include respond(tab-land) {
+    max-width: 1000px;
+  }
+}
+body {
+  #wrapper {
+    transition: $transition300;
+  }
+  &.video-modal-open {
+    overflow-y: hidden !important;
+  }
+}
+.btn-success:disabled {
+  cursor: not-allowed;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+// input:-webkit-autofill {
+//   -webkit-text-fill-color: yellow !important;
+// }
+// .coming {
+//   background-color: #020a1c;
+//   color: #fff;
+//   font-size: 1rem;
+//   padding: 0.2rem 1rem;
+//   border-radius: 20px;
+//   margin-left: 1rem;
+//   display: block;
+// }
+.btn-brandblue--outline {
+  // font-size: 0.875rem;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  text-transform: capitalize;
+  color: $brandgreen;
+  border: 1px solid $brandgreen;
+                border-radius: 1rem;
+                font-size: 1.8rem;
+                font-weight: 300;
+                &:hover, &:focus{
+                    text-decoration: none;
+                    color: $brandgreen;
+                }
+}
+.btn-brandblue {
+  @include fontRender(#ffffff, 1.5rem, 400, 3.3rem);
+  letter-spacing: 0.05rem;
+  background-color: $brandgreen;
+  border-color: $brandgreen;
+  border-radius: 3px;
+  padding: 0.7rem 2rem;
+  text-transform: capitalize;
+  transition: $transition600-1;
+  // box-shadow: 0px 10px 30px 10px rgba(97, 162, 240, 0.48);
+}
+
+.py-5r {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.py-16_7r {
+  padding-top: 16.7rem;
+  padding-bottom: 16.7rem;
+}
+
+.pb-16_7r {
+  padding-bottom: 16.7rem;
+}
+
+.pb-7_7r {
+  padding-bottom: 7.7rem;
+}
+
+.list-bullets-brand {
+  list-style-image: url("../img/gradient-brand-list-icon-8x8.svg");
+}
+.section-icon {
+  display: inline-block;
+  margin-bottom: 1.175rem;
+}
+.section-title {
+  font-size: 2.175rem;
+  font-weight: 700;
+  line-height: 2.875rem;
+  color: $fontblue;
+  margin-bottom: 1.075rem;
+}
+.section-desc {
+  color: $fontlight;
+  line-height: 1.85rem;
+  font-size: 1.125rem;
+  margin-bottom: 2.175rem;
+}
+.form-title {
+  margin-bottom: 2.275rem;
+}
+.form-group-mdb {
+  position: relative;
+  margin-top: 26px;
+  margin-bottom: 2.575rem;
+  .form-control {
+    color: $fontlight;
+    border-radius: 0;
+    padding: 0.45rem 0 0.175rem;
+    height: auto;
+    font-size: 0.975rem;
+    border-width: 0 0 1px;
+    border-color: $borderColor;
+    &:focus {
+      border-color: $borderColor;
+      box-shadow: none;
+    }
+    &:focus ~ .form-label-mdb {
+      transform: translate(0, -26px);
+      font-size: 0.775rem;
+      color: $fontblue;
+    }
+    &:focus ~ .focus-border {
+      width: 100%;
+    }
+  }
+  &.form-mdb-has-val,
+  &.form-mdb-error {
+    .form-label-mdb {
+      transform: translate(0, -26px);
+      font-size: 0.775rem;
+      color: $fontblue;
+    }
+    .focus-border {
+      width: 100%;
+    }
+  }
+  &.form-mdb-error {
+    .form-label-mdb {
+      color: $error;
+    }
+    .focus-border {
+      background-color: $error;
+    }
+    .help-text {
+      display: block;
+      color: $error;
+    }
+  }
+  .help-text {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    font-size: 0.675rem;
+  }
+  .form-label-mdb {
+    position: absolute;
+    margin: 0;
+    bottom: 0.175rem;
+    transition: $transition300;
+    color: #ccc;
+  }
+  .focus-border {
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: $brandgreen;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    transition: $transition300;
+  }
+}
+.user-form--check {
+  font-size: 0.875rem;
+  color: $fontlight;
+}
+.form-disc {
+  font-size: 0.775rem;
+  color: $fontlight;
+}
+.form-focus {
+  animation: tada 800ms;
+}
+.info--list {
+  .info--list-item {
+    font-size: 0.975rem;
+    line-height: 1.775rem;
+    margin-bottom: 0.675rem;
+    color: $fontlight;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.header-navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  .nav-menu-bar {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    padding-top: 1.375rem;
+    padding-bottom: 1.375rem;
+    .nav-menu-bar--main {
+      display: flex;
+      align-items: center;
+    }
+    .nav-menu-bar--main {
+      .nav-menu-list {
+        margin-left: 80px;
+      }
+    }
+    .nav-menu-list {
+      .dropdown-menu--item {
+        .dropdown-menu--link {
+          // font-size: 0.9375rem;
+          font-size: 1.5rem;
+          color: $fontblue;
+          padding: 0 0.25rem;
+          .dropdown-menu--icon {
+            padding-left: 4px;
+          }
+        }
+      }
+    }
+    .nav-menu-bar--action {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.sectionfooter {
+  width: 100%;
+  // height: 3rem;
+  background-color: $bgblue;
+  padding: 5rem 10rem;
+
+  // position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @include respond(tab-port) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    flex-direction: column;
+  }
+  .leftfooter {
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+    width: 70%;
+    justify-content: space-between;
+    @include respond(tab-port) {
+      width: 100%;
+    }
+    @include respond(phone) {
+      display: none;
+    }
+    ul {
+      h5 {
+        color: #fff;
+        letter-spacing: 0.1rem;
+        line-height: 1.4;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      li {
+        a {
+          text-decoration: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+  .rightfooter {
+    width: 25%;
+    @include respond(tab-port) {
+      width: 100%;
+      padding-top: 3rem;
+    }
+    @include respond(phone) {
+      padding-top: 0;
+    }
+    .footerhead {
+      h4 {
+        color: #fff;
+        letter-spacing: 0.1rem;
+        line-height: 1.4;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        @include respond(tab-port) {
+          text-align: center;
+          padding-bottom: 1rem;
+        }
+      }
+    }
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      padding-top: 2rem;
+      .socialIcon {
+        display: flex;
+        padding: 0;
+        background-color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3.25rem;
+        border-radius: 10rem;
+        padding: 1.3rem;
+        @include respond(tab-land) {
+          padding: 2rem;
+        }
+        @include respond(phone) {
+          margin: 2%;
+        }
+
+        a {
+          line-height: 0;
+          font-size: 1rem;
+          padding: 2rem;
+        }
+      }
+      .scfb:hover,
+      .scfb:hover i {
+        background-color: #3b5997;
+        color: #fff;
+      }
+      .sclk:hover,
+      .sclk:hover i {
+        background-color: #0073b2;
+        color: #fff;
+      }
+      .sctw:hover,
+      .sctw:hover i {
+        background-color: #00acee;
+        color: #fff;
+      }
+      .scyt:hover,
+      .scyt:hover i {
+        background-color: #c52f30;
+        color: #fff;
+      }
+      .scgp:hover,
+      .scgp:hover i {
+        background-color: #dd4b39;
+        color: #fff;
+      }
+    }
+  }
+}
+
+@keyframes tada {
+  0% {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  10%,
+  20% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate(-3deg);
+    transform: scale3d(0.9, 0.9, 0.9) rotate(-3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate(3deg);
+  }
+  40%,
+  60%,
+  80% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+}

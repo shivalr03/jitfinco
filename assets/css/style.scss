@@ -1,0 +1,470 @@
+@import "root";
+#wrapper,
+body {
+    overflow-x: hidden !important;
+}
+html {
+    scroll-behavior: smooth;
+    // This defines what 1rem is
+    font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+    @include respond(tab-land) {
+        // width < 1200?
+        font-size: 56.25%; //1 rem = 9px, 9/16 = 50%
+    }
+    @include respond(tab-port) {
+        // width < 900?
+        font-size: 50%; //1 rem = 8px, 8/16 = 50%
+    }
+    @include respond(big-desktop) {
+        font-size: 85%; //1rem = 12, 12/16
+    }
+}
+.cta{
+    &:hover, &:focus{
+        text-decoration: none;
+    }
+}
+@mixin heading {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 7rem;
+}
+@mixin subhead-one {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 4rem;
+}
+@mixin subhead-two {
+    font-size: 1.9rem;
+    font-weight: 600;
+    line-height: 2.8rem;
+}
+@mixin content {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2.6rem;
+    color: $fontlight;
+}
+@mixin respond($breakpoint) {
+    @if $breakpoint == small-phone {
+        @media only screen and (max-width: 19.938em) {
+            @content;
+        } //600px
+    }
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 26.5625em) {
+            @content;
+        } //600px
+    }
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) {
+            @content;
+        } //900px
+    }
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) {
+            @content;
+        } //1200px
+    }
+    @if $breakpoint == mid-desktop {
+        @media only screen and (min-width: 75.0625em) and (max-width: 112.4375em) {
+            @content;
+        } //1800
+    }
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) {
+            @content;
+        } //1800
+    }
+}
+
+.section-title {
+    margin-bottom: 1.6rem;
+    @include fontRender($fontblue, 2.8rem, 700, 4rem);
+}
+.section-desc {
+    @include fontRender($fontblue, 1.8rem, 400, 2.6rem);
+    letter-spacing: 0.005rem;
+}
+.cursor {
+    display: inline-block;
+    height: 40px;
+    width: 2px;
+    background: $fontblue;
+    vertical-align: middle;
+    animation: 1s blink linear infinite;
+}
+.btn-brandblue {
+    border-radius: 6rem;
+    background-color: #fff;
+    border: 0;
+    font-weight: 600;
+    padding: 1.2rem 2.6rem;
+    color: #6372e6;
+    border: 1px solid #6372e6;
+    text-transform: capitalize;
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: #fff;
+        // border: 0;
+        color: #6372e6;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+header{
+    .navbar{
+        padding: 2rem 10%;
+        @include respond(tab-land){
+            padding: 2rem 5%;
+        }
+        .navbar-nav{
+            .nav-link{
+                @include fontRender($fontblue, 1.5rem, 400, 2rem);
+                padding: 1rem 3rem;
+                transition: all .3s;
+                &:hover{
+                    color: #888;
+                }
+                @include respond(tab-land){
+                    padding: 2rem;
+                }
+            }
+        }
+    }
+}
+main{
+    banner{
+        padding: 6rem 10%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include respond(tab-land){
+            padding: 2rem 5%;
+        }
+        @include respond(phone){
+            padding: 2rem 5%;
+            flex-direction: column;
+        }
+        .left{
+            width: 50%;
+            @include respond(phone){
+                width: 100%;
+                order: 2;
+            }
+            .title{
+                @include fontRender($fontblue, 6rem, 700, 7rem);
+                span{
+                    font-size: 4.8rem;
+                    line-height: 6rem;
+                }
+            }
+        }
+        .right{
+                width: 50%;
+                @include respond(phone){
+                    width: 100%;
+                }
+        }
+    }
+    .section-1{
+        padding: 6rem 10%;
+        @include respond(tab-land){
+            padding: 2rem 5%;
+        }
+        .section-title{
+            text-align: center;
+        }
+        .main-container{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 4rem;
+            margin-top: 5rem;
+            @include respond(phone){
+                grid-template-columns: 1fr;
+            }
+            .box{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .box-icon{
+                    background: url('../image/green-bg.png') center center;
+                    background-size: 100%;
+                    width: 7rem;
+                    height: 7rem;
+                    padding: 1rem;
+
+                }
+                .box-title{
+                    margin: 3rem 0;
+                    @include fontRender($fontblue, 2rem, 500, 4rem);
+                    text-align: center;
+                }
+                .point-main{
+                    .points{
+                        padding-left: 0;
+                        .point{
+                            @include fontRender($fontblue, 1.6rem, 400, 4rem);
+                        }
+                    }
+                }
+                .cta-containner{
+                    display: flex;
+                    margin-top: 3rem;
+
+                    .cta{}
+                }
+            }
+        }
+    }
+    .section-2{
+        padding: 6rem 10%;
+        @include respond(tab-land){
+            padding: 2rem 5%;
+        }
+        .section-title{
+            text-align: center;
+        }
+        .main-container{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 4rem;
+            margin-top: 5rem;
+            @include respond(phone){
+                grid-template-columns: 1fr;
+            }
+            .box{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .box-icon{
+                    background: url('../image/green-bg.png') center center;
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    width: 7rem;
+                    height: 7rem;
+                    padding: 1rem;
+
+                }
+                .box-title{
+                    margin: 3rem 0;
+                    @include fontRender($fontblue, 2rem, 500, 4rem);
+                    text-align: center;
+                }
+                .content{
+                    text-align: center;
+                    @include content();
+                    a{
+                        color: $brandgreen;
+                    }
+                }
+            }
+        }
+        .cta-containner{
+            margin: 4rem 0;
+            display: flex;
+            justify-content: center;
+            .cta{
+                
+            }
+        }
+    }
+    .section-3{
+        background-color: $brandgreen;
+        padding: 6rem 10%;
+        @include respond(tab-land){
+            padding: 2rem 5%;
+        }
+        .section-title{
+            text-align: center;
+            color: #fff;
+        }
+        .main-container-1{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 4rem;
+            margin-top: 5rem;
+            @include respond(phone){
+                grid-template-columns: 1fr;
+            }
+            .box{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .box-title{
+                    margin: 3rem 0;
+                    @include fontRender($fontblue, 8rem, 700, 7rem);
+                    text-align: center;
+                    color: #fff;
+                }
+                .subhead{
+                    @include fontRender($fontblue, 2rem, 500, 4rem);
+                    color: #fff;
+                }
+                .content{
+                    text-align: center;
+                    @include content();
+                    color: #fff;
+                }
+            }
+        }
+        .main-container-2{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 4rem;
+            margin-top: 5rem;
+            @include respond(phone){
+                grid-template-columns: 1fr;
+            }
+            .box{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .box-title{
+                    margin: 3rem 0;
+                    @include fontRender($fontblue, 2rem, 500, 4rem);
+                    text-align: center;
+                    color: #fff;
+                }
+                .content{
+                    text-align: center;
+                    @include content();
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .section-4{
+        padding: 6rem 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        @include respond(tab-land){
+            padding: 2rem 5%;
+        }
+        .section-title{
+            text-align: center;
+        }
+        .content{
+            text-align: center;
+            @include content();
+            padding: 5rem 20% 0;
+            @include respond(phone){
+                padding: 2rem 5%;
+            }
+        }
+    }
+    .section-5{
+        padding: 6rem 10%;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        flex-direction: column;
+        @include respond(tab-land){
+            padding: 2rem 5%;
+        }
+        .section-title{
+            margin-bottom: 5rem;
+        }
+        .main-container{
+            display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-gap: 4rem;
+        @include respond(phone){
+            grid-template-columns: 1fr;
+        }
+        .box{
+            display: flex;
+            background-color:#FAFAFA;
+            flex-direction: column;
+            border-radius: 0.4em;
+            .box-img{}
+            .box-title{
+                margin: 3rem 0;
+                @include fontRender($fontblue, 1.8rem, 700, 2.6rem);
+                padding: 0 2rem;
+            }
+            .content{
+                @include content();
+                padding: 0 2rem;
+            }
+            .cta-container{
+                display: flex;
+                justify-content: flex-end;
+                padding: 2rem;
+                .cta{
+                    @include content();
+                    color: #38C172;
+                    i{
+                        margin-left: 1rem;
+                    }
+                }
+            }
+        }
+        }
+    }
+}
+footer{
+    background-color: #C4C4C4;
+    padding: 6rem 10%;
+    @include respond(tab-land){
+        padding: 2rem 5%;
+    }
+    .bottom-footer{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 4rem;
+        @include respond(phone){
+            grid-template-columns: 1fr;
+        }
+        .box{
+            .box-title{
+                @include fontRender($fontblue, 1.8rem, 700, 2.6rem);
+                padding-bottom: 2rem;
+            }
+            .content{
+                @include content();
+                color: #000;
+            }
+        }
+        .box-2{
+            address{
+                @include content();
+                a{
+                    color: #000;
+                    &:hover, &:active, &:focus{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        .box-3{
+            ul{
+                list-style: none;
+                padding: 0;
+
+                .links{
+                    a{
+                        text-decoration: none;
+                        color: #000;
+                        @include fontRender($fontblue, 1.6rem, 400, 2.6rem);
+                        &:hover, &:active, &:focus{
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .copy{
+        padding: 5rem 0 0 0;
+        .content{
+            text-align: center;
+            @include fontRender($fontblue, 1.8rem, 700, 2.6rem);
+        }
+    }
+}
